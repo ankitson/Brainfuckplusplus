@@ -1,9 +1,9 @@
-Introducing....
-
 Brainfuck++ (now with pretend-threads!)
 ======================================
 
-`echo "whatever input you want" | python ./brainfuck++.py thread1 thread2 thread3 ...`
+Usage:
+
+   echo "whatever input you want" | python ./brainfuck++.py thread1 thread2 thread3 ...
 
 What..... why?
 -------------
@@ -14,15 +14,16 @@ Ok, but how does it work?
 ------------------------
 
 Like so: brainfuck++.py takes in one or more arguments, each one being a file containing brainfuck++ code, and runs them simultaneously
-in ticks. Each brainfuck command takes one tick, so if in one you have `>+` and in another you have `<-`, the `>` and `<` get run at the
+in ticks. Each brainfuck command takes one tick to run, so if in one thread you have `>+` and in another you have `<-`, the `>` and `<` get run at the
 same time, followed by the `+` and `-` getting run at the same time.
 
 All threads share the same memory array, but act independently otherwise. The brainfuck input character `,` reads data from stdin.
 There is checking to make sure:
 
-    * Multiple threads aren't editing the same memory space at the same time
-    * Multiple threads aren't reading from stdin at the same time
-    * Multiple threads aren't writing to stdout at the same time
+* Multiple threads aren't editing the same memory space at the same time
+* Multiple threads aren't reading from stdin at the same time
+* Multiple threads aren't writing to stdout at the same time
+* One thread isn't reading from a space being written to by another thread
 
 Is there anything else new?
 --------------------------
